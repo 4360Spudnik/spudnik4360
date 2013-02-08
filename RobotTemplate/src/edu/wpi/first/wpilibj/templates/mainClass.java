@@ -8,9 +8,11 @@
 package edu.wpi.first.wpilibj.templates;
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,13 +24,16 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class mainClass extends IterativeRobot {
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
+    Compressor mainCompressor = new Compressor(1, 1);
     RobotDrive mainDrive = new RobotDrive(1, 2);
-    
+    Solenoid pistonOneOut = new Solenoid(1);
+    Solenoid pistonOneIn = new Solenoid(2);
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+        mainCompressor.start();
 
     }
 
@@ -44,6 +49,20 @@ public class mainClass extends IterativeRobot {
      */
     public void teleopPeriodic() {
         mainDrive.tankDrive(leftStick, rightStick);
+        if(leftStick.getRawButton(3)){
+            pistonOneOut.set(true);
+            pistonOneIn.set(false);
+        }else if(leftStick.getRawButton(2)){
+            pistonOneIn.set(true);
+            pistonOneOut.set(false);
+        }else{
+            pistonOneOut.set(false);
+            pistonOneIn.set(false);
+        }
+        
+        
+    
+    
     }
     
     /**
