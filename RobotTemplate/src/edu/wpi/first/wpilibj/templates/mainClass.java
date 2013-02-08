@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -22,13 +23,14 @@ import edu.wpi.first.wpilibj.Solenoid;
  * directory.
  */
 public class mainClass extends IterativeRobot {
-    //test test
+    
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
     Compressor mainCompressor = new Compressor(1, 1);
     RobotDrive mainDrive = new RobotDrive(1, 2);
     Solenoid pistonOneOut = new Solenoid(1);
     Solenoid pistonOneIn = new Solenoid(2);
+    Relay compressorRelay = new Relay(2);
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -59,7 +61,15 @@ public class mainClass extends IterativeRobot {
         }else{
             pistonOneOut.set(false);
             pistonOneIn.set(false);
+        }if (rightStick.getRawButton(3)){
+            compressorRelay.set(Relay.Value.kForward);
+        }else if(rightStick.getRawButton(4)){
+            compressorRelay.set(Relay.Value.kReverse);
+        }else{
+            compressorRelay.set(Relay.Value.kOff);
         }
+
+
         
         
     
