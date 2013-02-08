@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Solenoid;
  * directory.
  */
 public class mainClass extends IterativeRobot {
+    //hi
     Joystick leftStick = new Joystick(1);
     Joystick rightStick = new Joystick(2);
     Compressor mainCompressor = new Compressor(1, 1);
